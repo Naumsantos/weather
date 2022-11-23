@@ -1,8 +1,8 @@
 # App Weather Forecast
 
-This project was developed as an internship test at the company [https://wiseinovacao.com/](Wise Inovação).
+This project was developed as an internship test at the company [Wise Inovação](https://wiseinovacao.com/).
 
-The challenge was to create a web page that was responsive and that contained some characteristics such as displaying date/time, city, current temperature, weather description, minimum and maximum temperature, wind speed and humidity, all these characteristics were met with the template that I chose and which is in [https://www.figma.com/file/AeKiQhPvUPD7R8Xwb99F2w/Untitled?node-id=501%3A106 ](Figma).
+The challenge was to create a web page that was responsive and that contained some characteristics such as displaying date/time, city, current temperature, weather description, minimum and maximum temperature, wind speed and humidity, all these characteristics were met with the template that I chose and which is in [Figma](https://www.figma.com/file/AeKiQhPvUPD7R8Xwb99F2w/Untitled?node-id=501%3A106).
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
