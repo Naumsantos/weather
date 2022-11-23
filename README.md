@@ -1,4 +1,4 @@
-# App Weather Forecast
+# App of Weather Forecast
 
 This project was developed as an internship test at the company [Wise Inovação](https://wiseinovacao.com/).
 
