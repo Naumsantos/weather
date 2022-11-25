@@ -1,7 +1,13 @@
 import { useEffect, useState } from 'react';
 
+import WidgetClimaHora from './components/WidgetTempo';
+import Main from './components/Main';
+import CityDate from './components/CityDate';
+
+
 function App() {
   // consumindo a API
+  const dateHour = new Date();
 
   const [city, setCity] = useState("");
   const [weatherForecast, setWeatherForecast] = useState();
@@ -36,8 +42,6 @@ function App() {
           return res.json();
         }
       }).then((data) => {
-        console.log(data);
-
         setWeatherForecast(data);
       })
   };
@@ -48,77 +52,54 @@ function App() {
     })
   }, []);
 
+
   return (
-    <div className="App">
-      <div className="container">
-        <nav>
-          <div>
-            <h1>Clima</h1>
-            <small>Veja como está o clima em sua cidade.</small>
-            <div className="search">
-              <input onChange={handleChenge} type="text" placeholder="buscar cidade" value={city} />
-              <button id="btn" onClick={handleSarch}><span className="material-symbols-rounded"> search </span></button>
+    <>
+      <div className="App">
+        <div className="container">
+          <nav>
+            <div>
+              <h1>Clima</h1>
+              <small>Veja como está o clima em sua cidade.</small>
+              <div className="search">
+                <input onChange={handleChenge} type="text" placeholder="busque uma cidade" value={city} />
+                <button id="btn" onClick={handleSarch}><span className="material-symbols-rounded"> search </span></button>
+              </div>
             </div>
-          </div>
-        </nav>
+          </nav>
+          {
+            weatherForecast ? (
+              <>
+                <CityDate
+                  name={weatherForecast.location.name}
+                  region={weatherForecast.location.region}
+                  date={dateHour.toLocaleDateString()}
+                  time={dateHour.toLocaleTimeString()}
+                />
 
-        {
-          weatherForecast ? (
-            <>
-              <section className="cityDate">
-                <section className="city">
-                  <span className="material-symbols-rounded">pin_drop</span>
-                  <p>{weatherForecast.location.name} - {weatherForecast.location.region}</p>
-                </section>
-                <span className="date">{`Hoje, ${weatherForecast.current.last_updated.split(" ")[0]} às ${weatherForecast.current.last_updated.split(" ")[1]}`}</span>
-              </section>
+                <Main
+                  degrees={parseInt(weatherForecast.current.temp_c)}
+                  img={weatherForecast.current.condition.icon}
+                  condition={weatherForecast.current.condition.text}
+                  max={parseInt(weatherForecast.forecast.forecastday[0].day.maxtemp_c)}
+                  min={parseInt(weatherForecast.forecast.forecastday[0].day.mintemp_c)}
+                  air={weatherForecast.current.wind_kph}
+                  humidity={weatherForecast.current.humidity}
+                />
 
-              <main>
-                <div className="temperature">
-                  <p className="degrees">{`${parseInt(weatherForecast.current.temp_c)}°`}</p>
-                  <img src={weatherForecast.current.condition.icon} alt="Icone Tempo" />
-                </div>
-
-                <div className='detail'>
-                  <p className="">{weatherForecast.current.condition.text}</p>
-
-                </div>
-
-                <section className="maxMin">
-                  <div>
-                    <span className="material-symbols-sharp"> thermostat </span>
-                    <p>{`Máxima: ${parseInt(weatherForecast.forecast.forecastday[0].day.maxtemp_c)}°`}</p>
-                  </div>
-                  <p>{`Minima: ${parseInt(weatherForecast.forecast.forecastday[0].day.mintemp_c)}°`}</p>
-                </section>
-
-                <section className="airHumidity">
-                  <div className="air">
-                    <span className="material-symbols-sharp">air</span>
-                    <p>{`Vento: ${weatherForecast.current.wind_kph} Km/h`}</p>
-                  </div>
-
-                  <div className="humidity">
-                    <span className="material-symbols-sharp">humidity_percentage</span>
-                    <p>{`Umidade: ${weatherForecast.current.humidity}%`}</p>
-                  </div>
-                </section>
-              </main>
-
-              <footer>
-                <div className="weatherTime">
-                  <p className='hour'> {weatherForecast.forecast.forecastday[0].hour[19].time.split(" ")[1]}</p>
-                  <img className='img' src={weatherForecast.forecast.forecastday[0].hour[19].condition.icon} alt="Icone tempo" />
-                  <p className='deg'>{`${parseInt(weatherForecast.forecast.forecastday[0].hour[9].temp_c)}°`}</p>
-                </div>
-              </footer>
-            </>
-          ) : <p className="loading">Carregando ...</p>
-        }
-      </div>
-      <p className="about">Naum Santos Mourão | Site desenvolvido como teste para estágio na empresa <a href="https://wiseinovacao.com/">Wise Inovação</a></p>
-    </div >
-
+                <WidgetClimaHora
+                  hour={weatherForecast.forecast.forecastday[0].hour[22].time.split(" ")[1]}
+                  img={weatherForecast.forecast.forecastday[0].hour[22].condition.icon}
+                  deg={parseInt(weatherForecast.forecast.forecastday[0].hour[22].temp_c)}
+                  arrHour={(weatherForecast.forecast.forecastday[0].hour).map((e) => e.time.split(" ")[1])}
+                />
+              </>
+            ) : <p className="loading">Carregando ...</p>
+          }
+        </div>
+        <p className="about">Naum Santos Mourão | Site desenvolvido como teste para estágio na empresa <a href="https://wiseinovacao.com/">Wise Inovação</a></p>
+      </div >
+    </>
   );
 }
 

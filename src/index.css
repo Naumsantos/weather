@@ -194,7 +194,8 @@ img {
   width: 448px;
 }
 
-.airHumidity span {
+.airHumidity span,
+.iconHumidity {
   color: #0080F5;
 }
 
@@ -314,6 +315,7 @@ footer img {
 
 @media (min-width: 768px) {
   body {
+    padding-top: 44px;
     min-height: 100vh;
     background: no-repeat linear-gradient(180deg, #87E3F0 0%, #F5FFDE 100%);
   }
@@ -324,7 +326,7 @@ footer img {
 
     padding: 3.5rem 3rem;
 
-    margin: 44px auto;
+    margin: auto;
 
   }
 
