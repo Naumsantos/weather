@@ -315,7 +315,7 @@ footer img {
 
 @media (min-width: 768px) {
   body {
-    padding-top: 44px;
+    /* padding-top: 40px; */
     min-height: 100vh;
     background: no-repeat linear-gradient(180deg, #87E3F0 0%, #F5FFDE 100%);
   }
@@ -326,8 +326,7 @@ footer img {
 
     padding: 3.5rem 3rem;
 
-    margin: auto;
-
+    margin: 40px auto;
   }
 
   nav small {

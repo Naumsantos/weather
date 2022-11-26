@@ -3,47 +3,22 @@ import { useEffect, useState } from 'react';
 import WidgetClimaHora from './components/WidgetTempo';
 import Main from './components/Main';
 import CityDate from './components/CityDate';
-
+import Search from './components/Search';
+import { geolocalizacao } from './utils/consumoClimaTempo';
 
 function App() {
   // consumindo a API
   const dateHour = new Date();
 
-  const [city, setCity] = useState("");
   const [weatherForecast, setWeatherForecast] = useState();
-
-  // recebe o valor do input
-  const handleChenge = (e) => {
-    setCity(e.target.value);
-  };
-
-  const msg = document.querySelector(".loading");
-
-  // carrega a página de acordo com a cidade pesquisada
-  const handleSarch = () => {
-    fetch(`http://api.weatherapi.com/v1/forecast.json?key=b21ff113aed34a84aa2214715221411&q=${city}&lang=pt`)
-      .then((res) => {
-        if (res.status === 200) {
-          return res.json();
-        } else if (res.status === 400) {
-          setWeatherForecast(null);
-          msg.textContent = "Por favor, procure uma cidade válida 😩";
-        }
-      }).then((data) => {
-        setWeatherForecast(data);
-      })
-  };
+  const [menssageiro, setMensageiro] = useState("");
+  const [city, setCity] = useState("");
 
   // carrega a página com a localização atual do usuário
   const currentLocation = (lat, long) => {
-    fetch(`http://api.weatherapi.com/v1/forecast.json?key=b21ff113aed34a84aa2214715221411&q=${lat},${long}&lang=pt`)
-      .then((res) => {
-        if (res.status === 200) {
-          return res.json();
-        }
-      }).then((data) => {
-        setWeatherForecast(data);
-      })
+    geolocalizacao(lat, long).then((response) => {
+      setWeatherForecast(response);
+    });
   };
 
   useEffect(() => {
@@ -52,21 +27,30 @@ function App() {
     })
   }, []);
 
+  var detalhesDoTempo = [];
+  if (weatherForecast) {
+    for (var proximaHora = 1; proximaHora <= 5; proximaHora++) {
+      detalhesDoTempo.push(
+        <WidgetClimaHora
+          hour={weatherForecast.forecast.forecastday[0].hour[dateHour.getHours() + proximaHora].time.split(" ")[1]}
+          img={weatherForecast.forecast.forecastday[0].hour[dateHour.getHours() + proximaHora].condition.icon}
+          deg={parseInt(weatherForecast.forecast.forecastday[0].hour[dateHour.getHours() + proximaHora].temp_c)}
+        />
+      );
+    }
+  }
 
   return (
     <>
       <div className="App">
         <div className="container">
-          <nav>
-            <div>
-              <h1>Clima</h1>
-              <small>Veja como está o clima em sua cidade.</small>
-              <div className="search">
-                <input onChange={handleChenge} type="text" placeholder="busque uma cidade" value={city} />
-                <button id="btn" onClick={handleSarch}><span className="material-symbols-rounded"> search </span></button>
-              </div>
-            </div>
-          </nav>
+          <Search
+            cidade={city}
+            setCidade={setCity}
+            setMensagem={setMensageiro}
+            setClimaPrincipal={setWeatherForecast}
+          />
+
           {
             weatherForecast ? (
               <>
@@ -87,15 +71,15 @@ function App() {
                   humidity={weatherForecast.current.humidity}
                 />
 
-                <WidgetClimaHora
-                  hour={weatherForecast.forecast.forecastday[0].hour[22].time.split(" ")[1]}
-                  img={weatherForecast.forecast.forecastday[0].hour[22].condition.icon}
-                  deg={parseInt(weatherForecast.forecast.forecastday[0].hour[22].temp_c)}
-                  arrHour={(weatherForecast.forecast.forecastday[0].hour).map((e) => e.time.split(" ")[1])}
-                />
+                <footer>
+                  {
+                    detalhesDoTempo
+                  }
+                </footer>
               </>
-            ) : <p className="loading">Carregando ...</p>
+            ) : null
           }
+          <p className="loading">{menssageiro}</p>
         </div>
         <p className="about">Naum Santos Mourão | Site desenvolvido como teste para estágio na empresa <a href="https://wiseinovacao.com/">Wise Inovação</a></p>
       </div >
