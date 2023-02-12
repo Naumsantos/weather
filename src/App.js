@@ -46,9 +46,9 @@ function App() {
         <div className="container">
           <Search
             cidade={city}
-            setCidade={setCity}
-            setMensagem={setMensageiro}
-            setClimaPrincipal={setWeatherForecast}
+            setCity={setCity}
+            setMensageiro={setMensageiro}
+            setWeatherForecast={setWeatherForecast}
           />
 
           {
