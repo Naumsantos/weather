@@ -1,12 +1,5 @@
 import { procuraCidade } from '../utils/consumoClimaTempo';
 const Search = ({ city, setCity, setMensageiro, setWeatherForecast }) => {
-  // constructor(props) {
-  //   super(props);
-  //   this.city = props.cidade;
-  //   this.setCity = props.setCidade;
-  //   this.setMensageiro = props.setMensagem;
-  //   this.setWeatherForecast = props.setClimaPrincipal;
-  // }
 
   // recebe o valor do input
   const handleChange = (event) => {

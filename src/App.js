@@ -21,6 +21,7 @@ function App() {
     });
   };
 
+  // solicita ao usuário permissão para acesso da localização
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
       currentLocation(position.coords.latitude, position.coords.longitude);
@@ -81,7 +82,7 @@ function App() {
           }
           <p className="loading">{menssageiro}</p>
         </div>
-        <p className="about">Naum Santos Mourão | Site desenvolvido como teste para estágio na empresa <a href="https://wiseinovacao.com/">Wise Inovação</a></p>
+        <p className="about">🙂 Naum Santos Mourão</p>
       </div >
     </>
   );
