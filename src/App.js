@@ -7,7 +7,6 @@ import Search from './components/Search';
 import { geolocalizacao } from './utils/consumoClimaTempo';
 
 function App() {
-  // consumindo a API
   const dateHour = new Date();
 
   const [weatherForecast, setWeatherForecast] = useState();
@@ -28,25 +27,12 @@ function App() {
     })
   }, []);
 
-  var detalhesDoTempo = [];
-  if (weatherForecast) {
-    for (var proximaHora = 1; proximaHora <= 5; proximaHora++) {
-      detalhesDoTempo.push(
-        <WidgetClimaHora
-          hour={weatherForecast.forecast.forecastday[0].hour[dateHour.getHours() + proximaHora].time.split(" ")[1]}
-          img={weatherForecast.forecast.forecastday[0].hour[dateHour.getHours() + proximaHora].condition.icon}
-          deg={parseInt(weatherForecast.forecast.forecastday[0].hour[dateHour.getHours() + proximaHora].temp_c)}
-        />
-      );
-    }
-  }
-
   return (
     <>
       <div className="App">
         <div className="container">
           <Search
-            cidade={city}
+            city={city}
             setCity={setCity}
             setMensageiro={setMensageiro}
             setWeatherForecast={setWeatherForecast}
@@ -58,8 +44,6 @@ function App() {
                 <CityDate
                   name={weatherForecast.location.name}
                   region={weatherForecast.location.region}
-                  date={dateHour.toLocaleDateString()}
-                  time={dateHour.toLocaleTimeString()}
                 />
 
                 <Main
@@ -71,18 +55,12 @@ function App() {
                   air={weatherForecast.current.wind_kph}
                   humidity={weatherForecast.current.humidity}
                 />
-
-                <footer>
-                  {
-                    detalhesDoTempo
-                  }
-                </footer>
               </>
             ) : null
           }
           <p className="loading">{menssageiro}</p>
         </div>
-        <p className="about">🙂 Naum Santos Mourão</p>
+        <p className="about">🙂 - Naum Santos Mourão</p>
       </div >
     </>
   );

@@ -17,6 +17,7 @@ const Search = ({ city, setCity, setMensageiro, setWeatherForecast }) => {
       }
       setWeatherForecast(response);
     });
+
   };
 
 
@@ -25,7 +26,7 @@ const Search = ({ city, setCity, setMensageiro, setWeatherForecast }) => {
       <h1>Clima</h1>
       <small>Veja como está o clima em sua cidade.</small>
       <div className="search">
-        <input required onChange={handleChange} type="text" placeholder="busque uma cidade" value={city} />
+        <input id='search' required onChange={handleChange} type="text" placeholder="busque uma cidade" value={city} />
         <button id="btn" onClick={handleSearch}><span className="material-symbols-rounded"> search </span></button>
       </div>
     </div>
