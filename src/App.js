@@ -1,14 +1,11 @@
 import { useEffect, useState } from 'react';
 
-import WidgetClimaHora from './components/WidgetTempo';
 import Main from './components/Main';
 import CityDate from './components/CityDate';
 import Search from './components/Search';
 import { geolocalizacao } from './utils/consumoClimaTempo';
 
 function App() {
-  const dateHour = new Date();
-
   const [weatherForecast, setWeatherForecast] = useState();
   const [menssageiro, setMensageiro] = useState("");
   const [city, setCity] = useState("");
