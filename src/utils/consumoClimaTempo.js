@@ -1,4 +1,4 @@
-const baseURL = "http://api.weatherapi.com/v1/forecast.json";
+const baseURL = "https://api.weatherapi.com/v1/forecast.json";
 const key = "13c7de67583c4fadad9173127242101";
 const lang = "pt";
 
