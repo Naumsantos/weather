@@ -1,5 +1,5 @@
 const baseURL = "http://api.weatherapi.com/v1/forecast.json";
-const key = process.env.API_KEY;
+const key = "13c7de67583c4fadad9173127242101";
 const lang = "pt";
 
 const coletaResultadoJSON = async (URL) => {
